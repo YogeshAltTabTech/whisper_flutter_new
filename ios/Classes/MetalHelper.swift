@@ -27,8 +27,7 @@ import Foundation
                 "width": device.maxThreadsPerThreadgroup.width,
                 "height": device.maxThreadsPerThreadgroup.height,
                 "depth": device.maxThreadsPerThreadgroup.depth
-            ],
-            "hasUnifiedMemory": device.hasUnifiedMemory
+            ]
         ]
     }
     

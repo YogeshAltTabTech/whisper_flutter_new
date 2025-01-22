@@ -38,5 +38,6 @@ flutter:
         ffiPlugin: true
       ios:
         ffiPlugin: true
+        pluginClass: SwiftWhisperFlutterNewPlugin
       macos:
         ffiPlugin: true

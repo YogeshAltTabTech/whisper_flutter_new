@@ -11,9 +11,9 @@ _$TranscribeRequestImpl _$$TranscribeRequestImplFromJson(
     _$TranscribeRequestImpl(
       audio: json['audio'] as String,
       isTranslate: json['isTranslate'] as bool? ?? false,
-      threads: (json['threads'] as num?)?.toInt() ?? 8,
+      threads: (json['threads'] as num?)?.toInt() ?? 6,
       isVerbose: json['isVerbose'] as bool? ?? false,
-      language: json['language'] as String? ?? 'auto',
+      language: json['language'] as String? ?? "auto",
       isSpecialTokens: json['isSpecialTokens'] as bool? ?? false,
       isNoTimestamps: json['isNoTimestamps'] as bool? ?? false,
       nProcessors: (json['nProcessors'] as num?)?.toInt() ?? 1,

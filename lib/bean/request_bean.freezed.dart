@@ -45,8 +45,12 @@ mixin _$TranscribeRequest {
   bool get speedUp => throw _privateConstructorUsedError;
   set speedUp(bool value) => throw _privateConstructorUsedError;
 
+  /// Serializes this TranscribeRequest to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of TranscribeRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $TranscribeRequestCopyWith<TranscribeRequest> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -82,6 +86,8 @@ class _$TranscribeRequestCopyWithImpl<$Res, $Val extends TranscribeRequest>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of TranscribeRequest
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -182,6 +188,8 @@ class __$$TranscribeRequestImplCopyWithImpl<$Res>
       $Res Function(_$TranscribeRequestImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of TranscribeRequest
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -257,9 +265,9 @@ class _$TranscribeRequestImpl implements _TranscribeRequest {
   _$TranscribeRequestImpl(
       {required this.audio,
       this.isTranslate = false,
-      this.threads = 8,
+      this.threads = 6,
       this.isVerbose = false,
-      this.language = 'auto',
+      this.language = "auto",
       this.isSpecialTokens = false,
       this.isNoTimestamps = false,
       this.nProcessors = 1,
@@ -312,7 +320,9 @@ class _$TranscribeRequestImpl implements _TranscribeRequest {
     return 'TranscribeRequest(audio: $audio, isTranslate: $isTranslate, threads: $threads, isVerbose: $isVerbose, language: $language, isSpecialTokens: $isSpecialTokens, isNoTimestamps: $isNoTimestamps, nProcessors: $nProcessors, splitOnWord: $splitOnWord, noFallback: $noFallback, diarize: $diarize, speedUp: $speedUp)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of TranscribeRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$TranscribeRequestImplCopyWith<_$TranscribeRequestImpl> get copyWith =>
@@ -381,8 +391,11 @@ abstract class _TranscribeRequest implements TranscribeRequest {
   @override
   bool get speedUp;
   set speedUp(bool value);
+
+  /// Create a copy of TranscribeRequest
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TranscribeRequestImplCopyWith<_$TranscribeRequestImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -395,28 +408,32 @@ TranscribeRequestDto _$TranscribeRequestDtoFromJson(Map<String, dynamic> json) {
 mixin _$TranscribeRequestDto {
   String get audio => throw _privateConstructorUsedError;
   String get model => throw _privateConstructorUsedError;
-  @JsonKey(name: 'is_translate')
+  @JsonKey(name: "is_translate")
   bool get isTranslate => throw _privateConstructorUsedError;
   int get threads => throw _privateConstructorUsedError;
-  @JsonKey(name: 'is_verbose')
+  @JsonKey(name: "is_verbose")
   bool get isVerbose => throw _privateConstructorUsedError;
   String get language => throw _privateConstructorUsedError;
-  @JsonKey(name: 'is_special_tokens')
+  @JsonKey(name: "is_special_tokens")
   bool get isSpecialTokens => throw _privateConstructorUsedError;
-  @JsonKey(name: 'is_no_timestamps')
+  @JsonKey(name: "is_no_timestamps")
   bool get isNoTimestamps => throw _privateConstructorUsedError;
-  @JsonKey(name: 'n_processors')
+  @JsonKey(name: "n_processors")
   int get nProcessors => throw _privateConstructorUsedError;
-  @JsonKey(name: 'split_on_word')
+  @JsonKey(name: "split_on_word")
   bool get splitOnWord => throw _privateConstructorUsedError;
-  @JsonKey(name: 'no_fallback')
+  @JsonKey(name: "no_fallback")
   bool get noFallback => throw _privateConstructorUsedError;
   bool get diarize => throw _privateConstructorUsedError;
-  @JsonKey(name: 'speed_up')
+  @JsonKey(name: "speed_up")
   bool get speedUp => throw _privateConstructorUsedError;
 
+  /// Serializes this TranscribeRequestDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of TranscribeRequestDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $TranscribeRequestDtoCopyWith<TranscribeRequestDto> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -430,17 +447,17 @@ abstract class $TranscribeRequestDtoCopyWith<$Res> {
   $Res call(
       {String audio,
       String model,
-      @JsonKey(name: 'is_translate') bool isTranslate,
+      @JsonKey(name: "is_translate") bool isTranslate,
       int threads,
-      @JsonKey(name: 'is_verbose') bool isVerbose,
+      @JsonKey(name: "is_verbose") bool isVerbose,
       String language,
-      @JsonKey(name: 'is_special_tokens') bool isSpecialTokens,
-      @JsonKey(name: 'is_no_timestamps') bool isNoTimestamps,
-      @JsonKey(name: 'n_processors') int nProcessors,
-      @JsonKey(name: 'split_on_word') bool splitOnWord,
-      @JsonKey(name: 'no_fallback') bool noFallback,
+      @JsonKey(name: "is_special_tokens") bool isSpecialTokens,
+      @JsonKey(name: "is_no_timestamps") bool isNoTimestamps,
+      @JsonKey(name: "n_processors") int nProcessors,
+      @JsonKey(name: "split_on_word") bool splitOnWord,
+      @JsonKey(name: "no_fallback") bool noFallback,
       bool diarize,
-      @JsonKey(name: 'speed_up') bool speedUp});
+      @JsonKey(name: "speed_up") bool speedUp});
 }
 
 /// @nodoc
@@ -454,6 +471,8 @@ class _$TranscribeRequestDtoCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of TranscribeRequestDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -539,17 +558,17 @@ abstract class _$$TranscribeRequestDtoImplCopyWith<$Res>
   $Res call(
       {String audio,
       String model,
-      @JsonKey(name: 'is_translate') bool isTranslate,
+      @JsonKey(name: "is_translate") bool isTranslate,
       int threads,
-      @JsonKey(name: 'is_verbose') bool isVerbose,
+      @JsonKey(name: "is_verbose") bool isVerbose,
       String language,
-      @JsonKey(name: 'is_special_tokens') bool isSpecialTokens,
-      @JsonKey(name: 'is_no_timestamps') bool isNoTimestamps,
-      @JsonKey(name: 'n_processors') int nProcessors,
-      @JsonKey(name: 'split_on_word') bool splitOnWord,
-      @JsonKey(name: 'no_fallback') bool noFallback,
+      @JsonKey(name: "is_special_tokens") bool isSpecialTokens,
+      @JsonKey(name: "is_no_timestamps") bool isNoTimestamps,
+      @JsonKey(name: "n_processors") int nProcessors,
+      @JsonKey(name: "split_on_word") bool splitOnWord,
+      @JsonKey(name: "no_fallback") bool noFallback,
       bool diarize,
-      @JsonKey(name: 'speed_up') bool speedUp});
+      @JsonKey(name: "speed_up") bool speedUp});
 }
 
 /// @nodoc
@@ -560,6 +579,8 @@ class __$$TranscribeRequestDtoImplCopyWithImpl<$Res>
       $Res Function(_$TranscribeRequestDtoImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of TranscribeRequestDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -640,17 +661,17 @@ class _$TranscribeRequestDtoImpl extends _TranscribeRequestDto {
   const _$TranscribeRequestDtoImpl(
       {required this.audio,
       required this.model,
-      @JsonKey(name: 'is_translate') required this.isTranslate,
+      @JsonKey(name: "is_translate") required this.isTranslate,
       required this.threads,
-      @JsonKey(name: 'is_verbose') required this.isVerbose,
+      @JsonKey(name: "is_verbose") required this.isVerbose,
       required this.language,
-      @JsonKey(name: 'is_special_tokens') required this.isSpecialTokens,
-      @JsonKey(name: 'is_no_timestamps') required this.isNoTimestamps,
-      @JsonKey(name: 'n_processors') required this.nProcessors,
-      @JsonKey(name: 'split_on_word') required this.splitOnWord,
-      @JsonKey(name: 'no_fallback') required this.noFallback,
+      @JsonKey(name: "is_special_tokens") required this.isSpecialTokens,
+      @JsonKey(name: "is_no_timestamps") required this.isNoTimestamps,
+      @JsonKey(name: "n_processors") required this.nProcessors,
+      @JsonKey(name: "split_on_word") required this.splitOnWord,
+      @JsonKey(name: "no_fallback") required this.noFallback,
       required this.diarize,
-      @JsonKey(name: 'speed_up') required this.speedUp})
+      @JsonKey(name: "speed_up") required this.speedUp})
       : super._();
 
   factory _$TranscribeRequestDtoImpl.fromJson(Map<String, dynamic> json) =>
@@ -661,34 +682,34 @@ class _$TranscribeRequestDtoImpl extends _TranscribeRequestDto {
   @override
   final String model;
   @override
-  @JsonKey(name: 'is_translate')
+  @JsonKey(name: "is_translate")
   final bool isTranslate;
   @override
   final int threads;
   @override
-  @JsonKey(name: 'is_verbose')
+  @JsonKey(name: "is_verbose")
   final bool isVerbose;
   @override
   final String language;
   @override
-  @JsonKey(name: 'is_special_tokens')
+  @JsonKey(name: "is_special_tokens")
   final bool isSpecialTokens;
   @override
-  @JsonKey(name: 'is_no_timestamps')
+  @JsonKey(name: "is_no_timestamps")
   final bool isNoTimestamps;
   @override
-  @JsonKey(name: 'n_processors')
+  @JsonKey(name: "n_processors")
   final int nProcessors;
   @override
-  @JsonKey(name: 'split_on_word')
+  @JsonKey(name: "split_on_word")
   final bool splitOnWord;
   @override
-  @JsonKey(name: 'no_fallback')
+  @JsonKey(name: "no_fallback")
   final bool noFallback;
   @override
   final bool diarize;
   @override
-  @JsonKey(name: 'speed_up')
+  @JsonKey(name: "speed_up")
   final bool speedUp;
 
   @override
@@ -724,7 +745,7 @@ class _$TranscribeRequestDtoImpl extends _TranscribeRequestDto {
             (identical(other.speedUp, speedUp) || other.speedUp == speedUp));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -742,7 +763,9 @@ class _$TranscribeRequestDtoImpl extends _TranscribeRequestDto {
       diarize,
       speedUp);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of TranscribeRequestDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$TranscribeRequestDtoImplCopyWith<_$TranscribeRequestDtoImpl>
@@ -762,17 +785,17 @@ abstract class _TranscribeRequestDto extends TranscribeRequestDto {
   const factory _TranscribeRequestDto(
       {required final String audio,
       required final String model,
-      @JsonKey(name: 'is_translate') required final bool isTranslate,
+      @JsonKey(name: "is_translate") required final bool isTranslate,
       required final int threads,
-      @JsonKey(name: 'is_verbose') required final bool isVerbose,
+      @JsonKey(name: "is_verbose") required final bool isVerbose,
       required final String language,
-      @JsonKey(name: 'is_special_tokens') required final bool isSpecialTokens,
-      @JsonKey(name: 'is_no_timestamps') required final bool isNoTimestamps,
-      @JsonKey(name: 'n_processors') required final int nProcessors,
-      @JsonKey(name: 'split_on_word') required final bool splitOnWord,
-      @JsonKey(name: 'no_fallback') required final bool noFallback,
+      @JsonKey(name: "is_special_tokens") required final bool isSpecialTokens,
+      @JsonKey(name: "is_no_timestamps") required final bool isNoTimestamps,
+      @JsonKey(name: "n_processors") required final int nProcessors,
+      @JsonKey(name: "split_on_word") required final bool splitOnWord,
+      @JsonKey(name: "no_fallback") required final bool noFallback,
       required final bool diarize,
-      @JsonKey(name: 'speed_up')
+      @JsonKey(name: "speed_up")
       required final bool speedUp}) = _$TranscribeRequestDtoImpl;
   const _TranscribeRequestDto._() : super._();
 
@@ -784,37 +807,40 @@ abstract class _TranscribeRequestDto extends TranscribeRequestDto {
   @override
   String get model;
   @override
-  @JsonKey(name: 'is_translate')
+  @JsonKey(name: "is_translate")
   bool get isTranslate;
   @override
   int get threads;
   @override
-  @JsonKey(name: 'is_verbose')
+  @JsonKey(name: "is_verbose")
   bool get isVerbose;
   @override
   String get language;
   @override
-  @JsonKey(name: 'is_special_tokens')
+  @JsonKey(name: "is_special_tokens")
   bool get isSpecialTokens;
   @override
-  @JsonKey(name: 'is_no_timestamps')
+  @JsonKey(name: "is_no_timestamps")
   bool get isNoTimestamps;
   @override
-  @JsonKey(name: 'n_processors')
+  @JsonKey(name: "n_processors")
   int get nProcessors;
   @override
-  @JsonKey(name: 'split_on_word')
+  @JsonKey(name: "split_on_word")
   bool get splitOnWord;
   @override
-  @JsonKey(name: 'no_fallback')
+  @JsonKey(name: "no_fallback")
   bool get noFallback;
   @override
   bool get diarize;
   @override
-  @JsonKey(name: 'speed_up')
+  @JsonKey(name: "speed_up")
   bool get speedUp;
+
+  /// Create a copy of TranscribeRequestDto
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TranscribeRequestDtoImplCopyWith<_$TranscribeRequestDtoImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -838,6 +864,9 @@ class _$VersionRequestCopyWithImpl<$Res, $Val extends VersionRequest>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of VersionRequest
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -854,6 +883,9 @@ class __$$VersionRequestImplCopyWithImpl<$Res>
   __$$VersionRequestImplCopyWithImpl(
       _$VersionRequestImpl _value, $Res Function(_$VersionRequestImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of VersionRequest
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc

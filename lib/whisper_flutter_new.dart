@@ -106,8 +106,12 @@ class Whisper {
   Future<WhisperTranscribeResponse> transcribe({
     required TranscribeRequest transcribeRequest,
   }) async {
-    // Ensure GPU is initialized before transcription
-    await initializeGPU();
+    final bool gpuInitialized = await initializeGPU();
+    if (gpuInitialized) {
+      debugPrint('[Whisper] Using GPU acceleration');
+    } else {
+      debugPrint('[Whisper] Using CPU processing');
+    }
     
     final String modelDir = await _getModelDir();
     final Map<String, dynamic> result = await _request(
@@ -144,43 +148,57 @@ class Whisper {
   }
 
   Future<bool> initializeGPU() async {
-    final bool isSupported = await WhisperGPU.isGPUSupported();
-    if (!isSupported) {
-      throw UnsupportedError(
-          'GPU acceleration is required but not supported on this device');
-    }
-
     try {
-      final bool initialized = await _channel.invokeMethod('initializeGPU');
+      final bool isSupported = await WhisperGPU.isGPUSupported();
+      if (!isSupported) {
+        debugPrint(
+            '[Whisper] GPU acceleration not supported, falling back to CPU');
+        return false;
+      }
+
+      final bool initialized =
+          await _channel.invokeMethod('initializeGPU') ?? false;
       if (!initialized) {
-        throw Exception('Failed to initialize GPU');
+        debugPrint('[Whisper] Failed to initialize GPU, falling back to CPU');
+        return false;
       }
       return true;
     } catch (e) {
-      throw Exception('Failed to initialize GPU: $e');
+      debugPrint('[Whisper] Error initializing GPU: $e, falling back to CPU');
+      return false;
     }
   }
 }
 
 class WhisperGPU {
   static const MethodChannel _channel = MethodChannel('whisper_flutter_new');
-
+  
   static Future<bool> isGPUSupported() async {
-    if (Platform.isIOS) {
-      return await _channel.invokeMethod('isMetalSupported');
-    } else if (Platform.isAndroid) {
-      return await _channel.invokeMethod('isVulkanSupported');
+    try {
+      if (Platform.isIOS) {
+        return await _channel.invokeMethod('isMetalSupported') ?? false;
+      } else if (Platform.isAndroid) {
+        return await _channel.invokeMethod('isVulkanSupported') ?? false;
+      }
+    } catch (e) {
+      debugPrint('[WhisperGPU] Error checking GPU support: $e');
+      return false;
     }
     return false;
   }
-
+  
   static Future<Map<String, dynamic>> getGPUInfo() async {
-    if (Platform.isIOS) {
-      final info = await _channel.invokeMethod('getMetalDeviceInfo');
-      return Map<String, dynamic>.from(info);
-    } else if (Platform.isAndroid) {
-      final info = await _channel.invokeMethod('getVulkanInfo');
-      return Map<String, dynamic>.from(info);
+    try {
+      if (Platform.isIOS) {
+        final info = await _channel.invokeMethod('getMetalDeviceInfo');
+        return Map<String, dynamic>.from(info);
+      } else if (Platform.isAndroid) {
+        final info = await _channel.invokeMethod('getVulkanInfo');
+        return Map<String, dynamic>.from(info);
+      }
+    } catch (e) {
+      debugPrint('[WhisperGPU] Error getting GPU info: $e');
+      return {"error": e.toString()};
     }
     return {"error": "Platform not supported"};
   }
