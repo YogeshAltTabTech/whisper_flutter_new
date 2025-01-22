@@ -167,16 +167,9 @@ class WhisperGPU {
 
   static Future<bool> isGPUSupported() async {
     if (Platform.isIOS) {
-      final bool isMetalSupported =
-          await _channel.invokeMethod('isMetalSupported');
-      final bool isCoreMlSupported =
-          await _channel.invokeMethod('isCoreMlSupported');
-      // We need at least one GPU acceleration method
-      return isMetalSupported || isCoreMlSupported;
+      return await _channel.invokeMethod('isMetalSupported');
     } else if (Platform.isAndroid) {
-      final bool isVulkanSupported =
-          await _channel.invokeMethod('isVulkanSupported');
-      return isVulkanSupported;
+      return await _channel.invokeMethod('isVulkanSupported');
     }
     return false;
   }

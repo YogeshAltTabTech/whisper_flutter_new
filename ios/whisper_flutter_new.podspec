@@ -31,9 +31,9 @@ A Flutter FFI plugin for Whisper.cpp.
   s.pod_target_xcconfig = {
     'DEFINES_MODULE' => 'YES',
     'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386',
-    'OTHER_CFLAGS' => '-DGGML_USE_METAL -DWHISPER_USE_COREML -O3',
+    'OTHER_CFLAGS' => '-DGGML_USE_METAL -O3',
     'HEADER_SEARCH_PATHS' => '"$(PODS_TARGET_SRCROOT)/Classes/whisper.cpp"',
   }
   s.swift_version = '5.0'
-  s.frameworks = 'Metal', 'CoreML'
+  s.frameworks = 'Metal'
 end
