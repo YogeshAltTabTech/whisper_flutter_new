@@ -20,6 +20,23 @@ Recommended Models：base、small、medium
 All models have been actually tested, test devices: Android: Google Pixel 7 Pro, iOS: M1 iOS
 simulator，MacOS: M1 MacBookPro & M2 MacMini
 
+## Features
+
+- Supports both Android and iOS platforms
+- GPU acceleration using Metal on iOS and Vulkan on Android
+- CPU optimization with Accelerate framework on iOS
+- High-performance speech recognition
+
+## Requirements
+
+### iOS
+- iOS 11.0 or later
+- Device with Metal support
+
+### Android
+- Android 5.0 (API 21) or later
+- Device with Vulkan support
+
 ## Install library
 
 ```bash
@@ -66,3 +83,56 @@ final String transcription = await whisper.transcribe(
 );
 print(transcription);
 ```
+
+## Installation
+
+Add this to your package's pubspec.yaml file:
+
+```yaml
+dependencies:
+  whisper_flutter_new:
+    git:
+      url: https://github.com/[username]/whisper_flutter_new.git
+      ref: gpu-support
+```
+
+## Usage
+
+The GPU acceleration is automatically enabled on supported devices. No additional configuration is required.
+
+# GPU Acceleration Support
+
+## iOS (Metal)
+- Automatically enabled on iOS 11.0+ devices with Metal support
+- Uses Metal for GPU acceleration and Accelerate framework for CPU optimization
+- Fallbacks to CPU if Metal is not available
+
+## Android (Vulkan)
+- Automatically enabled on Android 5.0+ devices with Vulkan support
+- Requires Vulkan 1.0 or higher
+- Fallbacks to CPU if Vulkan is not available
+
+## Usage Example with GPU Support
+
+```dart
+final whisper = Whisper(
+    model: WhisperModel.base,
+    downloadHost: "https://huggingface.co/ggerganov/whisper.cpp/resolve/main"
+);
+
+// Check and initialize GPU support
+final bool gpuInitialized = await whisper.initializeGPU();
+print('GPU Acceleration: ${gpuInitialized ? 'Enabled' : 'Disabled'}');
+
+// Get GPU information
+final gpuInfo = await WhisperGPU.getGPUInfo();
+print('GPU Info: $gpuInfo');
+
+// Rest of your existing code...
+```
+
+## Performance Considerations
+
+- GPU acceleration can significantly improve performance, especially for larger models
+- For small audio files (<30 seconds), CPU might be faster due to initialization overhead
+- GPU memory usage is optimized but depends on the model size

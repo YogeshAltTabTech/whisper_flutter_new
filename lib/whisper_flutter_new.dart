@@ -10,6 +10,7 @@ import "dart:convert";
 import "dart:ffi";
 import "dart:io";
 import "dart:isolate";
+import 'dart:async';
 
 import "package:ffi/ffi.dart";
 import "package:flutter/foundation.dart";
@@ -18,6 +19,7 @@ import "package:whisper_flutter_new/bean/_models.dart";
 import "package:whisper_flutter_new/bean/whisper_dto.dart";
 import "package:whisper_flutter_new/download_model.dart";
 import "package:whisper_flutter_new/whisper_bindings_generated.dart";
+import "package:flutter/services.dart";
 
 export "package:whisper_flutter_new/bean/_models.dart";
 export "package:whisper_flutter_new/download_model.dart" show WhisperModel;
@@ -37,6 +39,8 @@ class Whisper {
 
   // override of model download host
   final String? downloadHost;
+
+  static const MethodChannel _channel = MethodChannel('whisper_flutter_new');
 
   DynamicLibrary _openLib() {
     if (Platform.isAndroid) {
@@ -102,6 +106,9 @@ class Whisper {
   Future<WhisperTranscribeResponse> transcribe({
     required TranscribeRequest transcribeRequest,
   }) async {
+    // Ensure GPU is initialized before transcription
+    await initializeGPU();
+    
     final String modelDir = await _getModelDir();
     final Map<String, dynamic> result = await _request(
       whisperRequest: TranscribeRequestDto.fromTranscribeRequest(
@@ -109,15 +116,18 @@ class Whisper {
         model.getPath(modelDir),
       ),
     );
+    
     if (kDebugMode) {
       debugPrint("Transcribe request $result");
     }
+    
     if (result["text"] == null) {
       if (kDebugMode) {
         debugPrint('Transcribe Exception ${result['message']}');
       }
       throw Exception(result["message"]);
     }
+    
     return WhisperTranscribeResponse.fromJson(result);
   }
 
@@ -131,5 +141,54 @@ class Whisper {
       result,
     );
     return response.message;
+  }
+
+  Future<bool> initializeGPU() async {
+    final bool isSupported = await WhisperGPU.isGPUSupported();
+    if (!isSupported) {
+      throw UnsupportedError(
+          'GPU acceleration is required but not supported on this device');
+    }
+
+    try {
+      final bool initialized = await _channel.invokeMethod('initializeGPU');
+      if (!initialized) {
+        throw Exception('Failed to initialize GPU');
+      }
+      return true;
+    } catch (e) {
+      throw Exception('Failed to initialize GPU: $e');
+    }
+  }
+}
+
+class WhisperGPU {
+  static const MethodChannel _channel = MethodChannel('whisper_flutter_new');
+
+  static Future<bool> isGPUSupported() async {
+    if (Platform.isIOS) {
+      final bool isMetalSupported =
+          await _channel.invokeMethod('isMetalSupported');
+      final bool isCoreMlSupported =
+          await _channel.invokeMethod('isCoreMlSupported');
+      // We need at least one GPU acceleration method
+      return isMetalSupported || isCoreMlSupported;
+    } else if (Platform.isAndroid) {
+      final bool isVulkanSupported =
+          await _channel.invokeMethod('isVulkanSupported');
+      return isVulkanSupported;
+    }
+    return false;
+  }
+
+  static Future<Map<String, dynamic>> getGPUInfo() async {
+    if (Platform.isIOS) {
+      final info = await _channel.invokeMethod('getMetalDeviceInfo');
+      return Map<String, dynamic>.from(info);
+    } else if (Platform.isAndroid) {
+      final info = await _channel.invokeMethod('getVulkanInfo');
+      return Map<String, dynamic>.from(info);
+    }
+    return {"error": "Platform not supported"};
   }
 }
